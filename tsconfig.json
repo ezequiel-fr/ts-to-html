@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "CommonJS",
-    "outDir": "./lib",
+    "outDir": "./scripts",
     "rootDir": "./src",
     "declaration": true,
     "declarationDir": "./types",
-    "removeComments": true,
+    "removeComments": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
