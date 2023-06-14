@@ -1,3 +1,16 @@
-import colors from 'colors';
+import { spawn } from 'child_process';
 
-console.log(colors.reset("Hello World!"));
+function startServer() {
+    const serverProcess = spawn('node', ["server.js"], {
+        stdio: 'pipe',
+        shell: true,
+    });
+
+    serverProcess.stderr.pipe(process.stderr);
+    serverProcess.stdin.pipe(process.stdin);
+    serverProcess.stdout.pipe(process.stdout);
+
+    serverProcess.on('close', code => code !== null && process.exit(code));
+}
+
+startServer();
