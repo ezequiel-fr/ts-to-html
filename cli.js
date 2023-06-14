@@ -13,15 +13,25 @@ process.on('unhandledRejection', function (err) {
 var args = process.argv.slice(2);
 
 // Get script name and arguments provided
-var scriptIndex = args.findIndex(function (x) { return x === 'build' || x === 'dev' || x === 'start'; });
+var scriptIndex = args.findIndex(x => x === 'build' || x === 'dev' || x === 'start');
 var script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 var nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
 if (["build", "dev", "start"].includes(script)) {
-    var child = (0, child_process_1.spawn)(process.execPath, [nodeArgs, require.resolve("../scripts/" + script), args.slice(scriptIndex + 1)].flat());
-    child.stderr.pipe(process.stderr);
+    var child = (0, child_process_1.spawn)(
+        process.execPath,
+        [
+            nodeArgs,
+            require.resolve(__dirname, "./scripts/" + script),
+            args.slice(scriptIndex + 1)
+        ].flat(),
+        { stdio: 'pipe' }
+    );
+
     child.stdin.pipe(process.stdin);
     child.stdout.pipe(process.stdout);
+    child.stderr.pipe(process.stderr);
+
     child.on('close', function (code, signal) {
         if (signal) {
             if (signal === "SIGKILL" || signal === "SIGTERM")
