@@ -1,5 +1,5 @@
-# Ignore TS files
-src/
+docs
+src
+test
 
-# Ignore test files
-test/
+.npmrc
