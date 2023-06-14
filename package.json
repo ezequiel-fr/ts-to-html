@@ -2,8 +2,10 @@
   "name": "ts-to-html",
   "version": "1.0.0",
   "description": "TS and SASS compiler for a HTML with live preview",
-  "main": "index.js",
-  "scripts": {},
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "node lib/index.js"
+  },
   "keywords": [
     "TS",
     "Live Preview",
@@ -12,12 +14,14 @@
   "author": "Ezequiel Dev",
   "license": "TheUnlicense",
   "dependencies": {
+    "colors": "^1.4.0",
     "sass": "^1.63.4",
     "ts-loader": "^9.4.3",
     "webpack": "^5.86.0",
     "ws": "^8.13.0"
   },
   "devDependencies": {
+    "@types/colors": "^1.2.1",
     "@types/sass": "^1.45.0",
     "@types/webpack": "^5.28.1",
     "@types/ws": "^8.5.5",
