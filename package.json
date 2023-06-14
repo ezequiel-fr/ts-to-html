@@ -1,0 +1,34 @@
+{
+  "name": "ts-to-html",
+  "version": "1.0.0",
+  "description": "TS and SASS compiler for a HTML with live preview",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "TS",
+    "Live Preview",
+    "SASS"
+  ],
+  "author": "Ezequiel Dev",
+  "license": "TheUnlicense",
+  "dependencies": {
+    "sass": "^1.63.4",
+    "ts-loader": "^9.4.3",
+    "webpack": "^5.86.0",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/sass": "^1.45.0",
+    "@types/webpack": "^5.28.1",
+    "@types/ws": "^8.5.5",
+    "typescript": "^5.1.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ezequiel-fr/ts-to-html.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ezequiel-fr/ts-to-html/issues"
+  },
+  "homepage": "https://github.com/ezequiel-fr/ts-to-html#readme"
+}

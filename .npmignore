@@ -1,0 +1,5 @@
+# Ignore TS files
+src/
+
+# Ignore test files
+test/
