@@ -4,7 +4,8 @@
   "description": "TS and SASS compiler for a HTML with live preview",
   "main": "lib/index.js",
   "scripts": {
-    "start": "node lib/index.js"
+    "start": "node lib/index.js",
+    "build": "node lib/index.js"
   },
   "keywords": [
     "TS",
