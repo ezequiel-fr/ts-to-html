@@ -1,7 +1,10 @@
 const { spawn } = require('node:child_process');
 const { resolve } = require('node:path');
 
-const pr = spawn(process.execPath, [resolve(process.cwd(), '../../cli.js'), "init", "--force"]);
+const pr = spawn(
+    process.execPath,
+    [resolve(process.cwd(), '../../cli.js'), "init", "test", "--force"]
+);
 
 process.openStdin();
 
