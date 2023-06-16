@@ -38,7 +38,7 @@ if (!existsSync(resolve('src'))) mkdirSync(resolve('src'));
 
 // Create gitignore file
 createFromExample("gitignore");
-renameSync("gitignore", ".gitignore");
+renameSync(resolve("gitignore"), resolve(".gitignore"));
 
 // Create .env files
 createFromExample(".env");
