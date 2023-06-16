@@ -1,10 +1,10 @@
 import { execSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { resolve as path } from 'node:path';
 
 import 'colors';
 
-import { clear, log } from './utils/log';
+import { clearAndLog, log } from './utils/log';
 import { parseArgs } from './utils/parse-args';
 
 const args = parseArgs(process.argv.slice(2));
@@ -28,13 +28,17 @@ function isInstalled(cmd: string) {
 };
 
 // Clear shell
-clear();
+clearAndLog("Initializing project...".green);
 
 // Create directories
 if (!existsSync(cwd)) mkdirSync(cwd);
 
 if (!existsSync(resolve('public'))) mkdirSync(resolve('public'));
 if (!existsSync(resolve('src'))) mkdirSync(resolve('src'));
+
+// Create gitignore file
+createFromExample("gitignore");
+renameSync("gitignore", ".gitignore");
 
 // Create .env files
 createFromExample(".env");
@@ -49,13 +53,12 @@ writeFileSync(resolve('src', 'index.ts'), 'console.log("Hello World!");\r\n');
 
 // Update `package.json` execution scripts
 const pkgJson = resolve('package.json');
+const npm = isInstalled("npm") ? "npm" : isInstalled("yarn") ? "yarn" : null;
+
+log(`Initializing Node.js project using [${npm}]`.cyan);
 
 if (!existsSync(pkgJson)) {
-    if (isInstalled("npm")) {
-        exec("npm init -y");
-    } else if (isInstalled("yarn")) {
-        exec("yarn init -y");
-    } else log(
+    npm ? exec(npm + " init -y") : log(
         "No supported package manager found.".red,
         `${"See:".red} ${"https://github.com/ezequiel-fr/ts-to-html".reset}`,
     );
@@ -84,13 +87,16 @@ const data: { [key: string]: any } = {
 
 writeFileSync(pkgJson, JSON.stringify(data, null, 2).concat("\r\n"));
 
+// Init using npm or yarn
+if (npm) exec(npm + " install");
+
 // Init Git repo
 if (!args.flags.includes("no-git")) {
     if (isInstalled("git")) {
         exec("git init");
-        log("Git repository initialized".blue);
+        log("Git repository initialized".cyan);
     } else {
-        log("Git not installed on this machine.".blue);
+        log("Git not installed on this machine.".red);
     }
 }
 
