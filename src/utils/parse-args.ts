@@ -1,5 +1,6 @@
 export function parseArgs(args: string[]) {
-    const flags: string[] = [], params: string[] = [];
+    const flags: string[] = [],
+          params: string[] = [];
 
     for (const arg of args) {
         if (arg.startsWith("--")) {
@@ -11,7 +12,7 @@ export function parseArgs(args: string[]) {
             const flagChars = arg.slice(1).split("");
             flagChars.push(...flagChars);
         } else params.push(arg);
-    };
+    }
 
     return { flags, params };
-};
+}
