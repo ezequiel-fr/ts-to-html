@@ -3,7 +3,7 @@ const { resolve } = require('node:path');
 
 const pr = spawn(
     process.execPath,
-    [resolve(process.cwd(), '../../cli.js'), "init", "test", "--force"]
+    [resolve(process.cwd(), '../../cli.js'), "init", "test", "--no-git", "--force"]
 );
 
 process.openStdin();
