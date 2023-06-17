@@ -82,4 +82,4 @@ dist
 
 # Remove build and test folders
 scripts
-tests/init/**/
+tests
