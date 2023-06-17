@@ -81,5 +81,6 @@ dist
 .pnp.*
 
 # Remove build and test folders
+config/*.js
 scripts
 tests

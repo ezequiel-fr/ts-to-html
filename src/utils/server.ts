@@ -2,11 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { resolve } from 'node:path';
 
-import { WebSocketServer } from 'ws';
-
-import { log } from './log';
-
-const PORT = process.env.PORT || 1002;
+const PORT = process.env.PORT || "1002";
 
 // config env
 const server = createServer((req, res) => {
@@ -19,15 +15,22 @@ const server = createServer((req, res) => {
     if (String(req.method).toUpperCase() === "GET") {
         try {
             const url = req.url || "/";
-            const path = resolve(process.cwd(), "public", url.length <= 1 ? "index.html" : "./" + url);
+            const path = resolve(
+                process.cwd(), "public",
+                url.length <= 1 ? "index.html" : "./" + url,
+            );
 
             if (existsSync(path)) {
                 res.statusCode = 200;
-                return res.end(readFileSync(path));
+                return res.end(readFileSync(path).toString().replace(
+                    /%PUBLIC_URL%/g,
+                    process.env.PUBLIC_URL || "",
+                ));
             } else return endRes(404, "Not found");
         } catch (error) {
             return endRes(500, "An internal error has occured.");
         }
     } else endRes(401, "Unauthorized");
 });
-server.listen(PORT, () => log(`Server running at ${PORT}`));
+
+export default (callback: (port: string) => void) => server.listen(PORT, () => callback(PORT));

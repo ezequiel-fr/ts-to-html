@@ -74,7 +74,7 @@ const data: { [key: string]: any } = {
 	version: "1.0.0",
 	private: true,
 	dependencies: {
-		"ts-to-html": JSON.parse(readFileSync(path(
+		"ts-to-html": "^" + JSON.parse(readFileSync(path(
 			__dirname, "../package.json"
 		), "utf8")).version,
 	},
