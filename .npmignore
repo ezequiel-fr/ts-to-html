@@ -3,3 +3,5 @@ src
 tests
 
 .npmrc
+tsconfig.json
+*.log

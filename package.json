@@ -1,6 +1,6 @@
 {
   "name": "ts-to-html",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "TS and SASS compiler for a HTML with live preview",
   "main": "cli.js",
   "scripts": {
