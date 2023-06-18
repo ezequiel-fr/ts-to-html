@@ -49,7 +49,9 @@ createFromExample("index.html", "public");
 createFromExample("style.scss", "public");
 
 // Create files into `src`
-writeFileSync(resolve('src', 'index.ts'), 'console.log("Hello World!");\r\n');
+writeFileSync(resolve('src', 'index.ts'), 'console.log("Hello World!");\r\n// tmp\r\nrequire("./sync.ts")\r\n');
+// tmp file
+createFromExample("sync.ts", "src");
 
 // Update `package.json` execution scripts
 const pkgJson = resolve('package.json');
