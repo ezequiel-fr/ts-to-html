@@ -4,10 +4,10 @@ import { resolve } from 'node:path';
 import { compile } from 'sass';
 import { webpack } from 'webpack';
 
-import config from '../config/webpack';
+import webpackConfig from '../config/webpack';
 import { clearAndLog } from './log';
 
-export const compileTS = () => new Promise((resolve, reject) => {
+export const compileTS = (config = webpackConfig) => new Promise((resolve, reject) => {
     const compiler = webpack(config);
 
     compiler.run((err, stats) => {
@@ -16,8 +16,8 @@ export const compileTS = () => new Promise((resolve, reject) => {
     });
 });
 
-type ResultSASS = { file: string, css: string };
-type ErrorSASS<T = unknown> = { error: T };
+export type ResultSASS = { file: string, css: string };
+export type ErrorSASS<T = unknown> = { error: T };
 
 export const compileSASS = (...files: string[] | string[][]) => {
     const paths = files.flat();

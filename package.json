@@ -18,6 +18,8 @@
   "license": "TheUnlicense",
   "dependencies": {
     "colors": "^1.4.0",
+    "html-minifier": "^4.0.0",
+    "jsdom": "^22.1.0",
     "sass": "^1.63.4",
     "ts-loader": "^9.4.3",
     "webpack": "^5.86.0",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@types/colors": "^1.2.1",
+    "@types/jsdom": "^21.1.1",
     "@types/sass": "^1.45.0",
     "@types/webpack": "^5.28.1",
     "@types/ws": "^8.5.5",

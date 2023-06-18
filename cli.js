@@ -15,7 +15,7 @@ var args = process.argv.slice(2);
 
 // Get script name and arguments provided
 var scriptIndex = args.findIndex(x =>
-    x === 'build' || x === 'dev' || x === 'init' || x === 'start'
+    x === 'build' || x === 'dev' || x === 'init' || x === 'serve' || x === 'start'
 );
 var script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 var nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
@@ -42,7 +42,7 @@ function spawnChild() {
     return child;
 }
 
-if (["build", "dev", "init", "start"].includes(script)) {
+if (["build", "dev", "init", "serve", "start"].includes(script)) {
     var child = spawnChild();
 
     // Restart if required by the user ("rs" cmd)
