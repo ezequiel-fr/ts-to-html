@@ -7,4 +7,5 @@ export declare type ErrorSASS<T = unknown> = {
     error: T;
 };
 export declare const compileSASS: (...files: string[] | string[][]) => (ResultSASS | ErrorSASS<unknown>)[];
+export declare const compileSassFile: (input: string, minified?: boolean) => Promise<string>;
 export declare const compileAll: () => Promise<void>;

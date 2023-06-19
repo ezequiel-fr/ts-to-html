@@ -1,6 +1,8 @@
 import { readdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import autoprefixer from 'autoprefixer';
+import postcss from 'postcss';
 import { compile } from 'sass';
 import { webpack } from 'webpack';
 
@@ -34,6 +36,17 @@ export const compileSASS = (...files: string[] | string[][]) => {
     return result;
 };
 
+export const compileSassFile = async (input: string, minified = false) => {
+    // prefix and compile CSS
+    const { css } = await postcss([autoprefixer]).process(
+        compile(input, { style: minified ? "compressed" : "expanded" }).css,
+        { from: undefined },
+    );
+
+    // Return CSS
+    return css;
+};
+
 export const compileAll = async () => {
     clearAndLog("Compiling...".yellow);
 
@@ -47,12 +60,9 @@ export const compileAll = async () => {
     const sassFiles = dir.filter(e => e.endsWith('.scss'));
 
     // Compile SASS
-    compileSASS(sassFiles).forEach(e => {
-        if (Object.prototype.hasOwnProperty.call(e, "error"))
-            console.error((e as ErrorSASS).error);
-        else writeFileSync(
-            (e as ResultSASS).file.replace(/\.scss$/, '.css'),
-            (e as ResultSASS).css,
-        );
-    });
+    for (const file of sassFiles) {
+        const css = await compileSassFile(file);
+
+        writeFileSync(file.replace(/\.scss$/, '.css'), css);
+    }
 };
