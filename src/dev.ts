@@ -1,7 +1,6 @@
 import { watch, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-import { compile } from 'sass';
 import { WebSocketServer } from 'ws';
 
 import { compileAll, compileSassFile } from './utils/compiler';

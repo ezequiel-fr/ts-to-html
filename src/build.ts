@@ -1,5 +1,4 @@
 import { Configuration } from 'webpack';
-import { ErrorSASS, ResultSASS } from './utils/compiler';
 
 import {
     existsSync,
@@ -15,7 +14,7 @@ import { basename, join, resolve as path } from 'node:path';
 
 import { JSDOM } from 'jsdom';
 
-import { compileSASS, compileTS } from './utils/compiler';
+import { compileSassFile, compileTS } from './utils/compiler';
 import { clearAndLog } from './utils/log';
 import config, { Modes } from './config/webpack';
 
@@ -98,15 +97,13 @@ writeFileSync(resolve("index.html"), minify(dom.serialize(), {
 writeFileSync(resolve(".env"), readFileSync(resolve("../.env")));
 
 // Compile SASS files
-compileSASS(
-    dir.filter(e => e.endsWith('.scss')).map(e => join(path(process.cwd(), "public"), e))
-).forEach(e => {
-    if (Object.prototype.hasOwnProperty.call(e, "error"))
-        console.error((e as ErrorSASS).error);
-    else writeFileSync(
-        resolve("assets", basename((e as ResultSASS).file, "scss") + "css"),
-        (e as ResultSASS).css,
-    );
+const sassFiles = dir.filter(e => e.endsWith(".scss")).map(e => (
+    join(path(process.cwd(), "public"), e))
+);
+
+sassFiles.forEach(async cssFile => {
+    const css = await compileSassFile(cssFile, true);
+    writeFileSync(resolve("assets", basename(cssFile, "scss") + "css"), css);
 });
 
 // Build ended
